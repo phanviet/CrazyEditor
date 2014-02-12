@@ -10,6 +10,7 @@
     // the `baseUrl` value supplied above.
     var testModules = [
         "backend/edit_test.js",
+        "backend/view_test.js",
     ];
 
     // Resolve all testModules and then start the Test Runner.
