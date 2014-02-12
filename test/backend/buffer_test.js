@@ -13,8 +13,16 @@ define(function(require, exports, module) {
     });
 
     QUnit.test("insert function test", function() {
+        var callback1 = function() {
+            console.log("callback1");
+        }
+        var callback2 = function() {
+            console.log("callback1");
+        }
+        buffer.callbacks = [callback1, callback2]
         buffer.data = "hello";
         buffer.insert(0, "e");
+        console.log("after insert");
         QUnit.equal(buffer.data, "ehello");
         buffer.data = "hello";
         buffer.insert(-1, "a");
@@ -58,5 +66,13 @@ define(function(require, exports, module) {
         buffer.data = "hello world";
         buffer.erase(0, 12);
         QUnit.equal(buffer.data, "");
+    });
+     QUnit.test("replace function test", function() {
+        buffer.data = "hello";
+        buffer.replac(0, 2, "TUAN");
+        QUnit.equal(buffer.data, "TUANllo");
+         buffer.data = "hello world";
+        buffer.replac(0, 12, "abc");
+        QUnit.equal(buffer.data, "abc");
     });
 });

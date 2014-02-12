@@ -18,7 +18,11 @@
     -moz-animation:pulse 1s infinite;
     display:inline-block;
     top: 0px;
-    left: 40px; 
+    left: 10px;
+}
+
+.hide {
+    display: none;
 }
 
 @-webkit-keyframes pulse {
