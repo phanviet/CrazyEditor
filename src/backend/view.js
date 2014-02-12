@@ -41,8 +41,7 @@ define(function(require, exports, module) {
 		};
 
 		this.convertToColRow = function(x, y) {
-			this.col= x/40;
-			this.row= y/1;
+			//convert
 			
 		};
 
