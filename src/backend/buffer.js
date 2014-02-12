@@ -42,6 +42,10 @@ define(function(require, exports, module) {
                     + self.data.substring(position + length, self.data.length);
             self.notify(position, -length);
         };
+        self.replac = function(position, length, value){
+            self.erase(position,length);
+            self.insert(position, value);
+        }
     };
 
     module.exports = Buffer;

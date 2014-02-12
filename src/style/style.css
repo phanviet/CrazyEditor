@@ -8,7 +8,7 @@
 }
 
 .cursor {
-    height:16px;
+    height:15px;
     width: 1px;
     background: red;
     display: block;
@@ -17,8 +17,12 @@
     -webkit-animation:pulse 1s infinite;
     -moz-animation:pulse 1s infinite;
     display:inline-block;
-    top: 0px;
-    left: 40px; 
+    top: 1px;
+    left: 40px;
+}
+
+.hide {
+    display: none;
 }
 
 @-webkit-keyframes pulse {
