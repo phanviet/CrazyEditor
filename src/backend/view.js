@@ -1,7 +1,9 @@
 define(function(require, exports, module) {
 
 	var Buffer = require('backend/buffer');
+    var Line = function(){
 
+    };
 	var View = function() {
 
 	};
@@ -26,18 +28,21 @@ define(function(require, exports, module) {
 			this.x = this.x + (9 * this.row);
 			return this.x;
 		};
-         this.getCurrentY = function(){
-        return this.y;
+
+        this.getCurrentY = function(){
+        	return this.y;
         };
-         this.getCurrentX = function(){
-        return this.x;
-        };
+
+        this.getCurrentX = function(){
+        	return this.x;
+    	};
+
 		this.bind = function(element) {
 			this.element = element;
 			return this.element;
 		};
 
-		this.show = function() {
+		this.show1 = function(element) {
 			this.element.removeClass('hide');
 		};
 
@@ -46,27 +51,32 @@ define(function(require, exports, module) {
 		};
 
 		this.goToWithXY = function(x, y) {
-			//alert(x+":"+y);
+			alert(x+":"+y);
 			this.convertToColRow(x, y);
 			var col=12;
 			var row=2;
 			this.goTo(col, row);
 		};
+
         this.bindCursor = function(element){
             this.element = element;
             return element;
         };
+
         this.showCursor = function(element){
             this.element.removeClass('hide');
             this.element.css({'top': this.getCurrentY() + 'px', 'left' : this.getCurrentX() + 'px'}); 
     	};
+
     	this.showClick = function(element){
        		 this.element.css({'top': this.col + 'px', 'left' : this.row + 'px'});  
     	};
+
     	this.goToXY = function(a, b){ //convert x,y to col and row
         	this.col = b / (16 * this.col);
         	this.row = a / (9 * this.row);
     	};
+
 		this.convertToColRow = function(x, y) {
 			//convert
 			
