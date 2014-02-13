@@ -5,6 +5,9 @@ define(function(require, exports, module) {
 	var View = function() {
 
 	};
+    var Line = function(){
+
+    }
 	Line.prototype.cursors = [];
 	Line.prototype.buffer = function(buffer){
     	this.buffer = buffer || new Buffer();
@@ -52,16 +55,15 @@ define(function(require, exports, module) {
 			var row=2;
 			this.goTo(col, row);
 		};
-        this.bindCursor = function(element){
-            this.element = element;
-            return element;
+        this.bindCursor = function(){
+            return this;
         };
-        this.showCursor = function(element){
-            this.element.removeClass('hide');
-            this.element.css({'top': this.getCurrentY() + 'px', 'left' : this.getCurrentX() + 'px'}); 
+        this.showCursor = function(){
+            $('.cursor').removeClass('hide');
+            $('.cursor').css({'top': this.getCurrentY() + 'px', 'left' : this.getCurrentX() + 'px'}); 
     	};
-    	this.showClick = function(element){
-       		 this.element.css({'top': this.col + 'px', 'left' : this.row + 'px'});  
+    	this.showClick = function(){
+       		 $('.cursor').css({'top': this.col + 'px', 'left' : this.row + 'px'});  
     	};
     	this.goToXY = function(a, b){ //convert x,y to col and row
         	this.col = b / (16 * this.col);
@@ -80,6 +82,7 @@ define(function(require, exports, module) {
 		this.goTo = function(col, row) {
 			this.col = col;
 			this.row = row;
+            return this.col + this.row;
 		};
 
 		this.goToEndOfView = function() {
@@ -90,8 +93,9 @@ define(function(require, exports, module) {
 			this.goTo(1, 1);
 		};
 
-		this.goToEndOfLine = function() {
+		this.goToEndOfLine = function(line) {
 			this.goTo(this.line.len() + 1, this.row);
+            return this.line.len();
 		};
 
 		this.goToFirstOfLine = function() {

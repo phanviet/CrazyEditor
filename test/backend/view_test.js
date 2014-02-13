@@ -16,7 +16,7 @@ define(function(require, exports, module) {
         QUnit.equal(cursor.goTo(2,2), 4);
      });
      QUnit.test("goToEndOfLine function test", function() {
-     	cursor = new View.Cursor(1, 1, line);
+     	cursor = new View.Cursor(1, 1, view, line);
      	buffer.data = 'hello word';
      	line.buffer(buffer);
      	console.log(line.len());
