@@ -1,7 +1,9 @@
 define(function(require, exports, module) {
 
 	var Buffer = require('backend/buffer');
+    var Line = function(){
 
+    };
 	var View = function() {
 
 	};
@@ -43,7 +45,7 @@ define(function(require, exports, module) {
 		};
 
 		this.goToWithXY = function(x, y) {
-			//alert(x+":"+y);
+			alert(x+":"+y);
 			this.convertToColRow(x, y);
 			var col = 12;
 			var row = 2;
@@ -52,17 +54,21 @@ define(function(require, exports, module) {
         this.bindCursor = function(){
             return this;
         };
-        this.showCursor = function(){
-            $('.cursor').removeClass('hide');
-            $('.cursor').css({'top': this.y + 'px', 'left' : this.x + 'px'}); 
+        this.bindCursor = function(element){
+            this.element = element;
+            return this;
+        };
+
+        this.showCursor = function(element){
+            this.element.removeClass('hide');
+            this.element.css({'top': this.getCurrentY() + 'px', 'left' : this.getCurrentX() + 'px'}); 
     	};
-    	this.showClick = function(){
-       		$('.cursor').css({'top': this.col + 'px', 'left' : this.row + 'px'});  
-    	};
+
     	this.goToXY = function(a, b){ //convert x,y to col and row
         	this.col = b / (16 * this.col);
         	this.row = a / (9 * this.row);
     	};
+
 		this.convertToColRow = function(x, y) {
 			//convert
 			
