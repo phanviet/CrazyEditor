@@ -29,12 +29,6 @@ define(function(require, exports, module) {
 			this.x = this.x + (9 * this.row);
 			return this.x;
 		};
-         this.getCurrentY = function(){
-        return this.y;
-        };
-         this.getCurrentX = function(){
-        return this.x;
-        };
 		this.bind = function(element) {
 			this.element = element;
 			return this.element;
@@ -51,8 +45,8 @@ define(function(require, exports, module) {
 		this.goToWithXY = function(x, y) {
 			//alert(x+":"+y);
 			this.convertToColRow(x, y);
-			var col=12;
-			var row=2;
+			var col = 12;
+			var row = 2;
 			this.goTo(col, row);
 		};
         this.bindCursor = function(){
@@ -60,10 +54,10 @@ define(function(require, exports, module) {
         };
         this.showCursor = function(){
             $('.cursor').removeClass('hide');
-            $('.cursor').css({'top': this.getCurrentY() + 'px', 'left' : this.getCurrentX() + 'px'}); 
+            $('.cursor').css({'top': this.y + 'px', 'left' : this.x + 'px'}); 
     	};
     	this.showClick = function(){
-       		 $('.cursor').css({'top': this.col + 'px', 'left' : this.row + 'px'});  
+       		$('.cursor').css({'top': this.col + 'px', 'left' : this.row + 'px'});  
     	};
     	this.goToXY = function(a, b){ //convert x,y to col and row
         	this.col = b / (16 * this.col);
