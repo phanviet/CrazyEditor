@@ -7,13 +7,12 @@ define(function(require, exports, module) {
 	var View = function() {
 
 	};
-    var Line = function(){
-
-    }
+    
 	Line.prototype.cursors = [];
 	Line.prototype.buffer = function(buffer){
     	this.buffer = buffer || new Buffer();
 	};
+
 	Line.prototype.len = function(){
     	return this.buffer.size();
 	};
@@ -31,10 +30,6 @@ define(function(require, exports, module) {
 			this.x = this.x + (9 * this.row);
 			return this.x;
 		};
-		this.bind = function(element) {
-			this.element = element;
-			return this.element;
-		};
 
 		this.show = function() {
 			this.element.removeClass('hide');
@@ -45,15 +40,11 @@ define(function(require, exports, module) {
 		};
 
 		this.goToWithXY = function(x, y) {
-			alert(x+":"+y);
 			this.convertToColRow(x, y);
 			var col = 12;
 			var row = 2;
 			this.goTo(col, row);
 		};
-        this.bindCursor = function(){
-            return this;
-        };
         this.bindCursor = function(element){
             this.element = element;
             return this;
@@ -103,8 +94,6 @@ define(function(require, exports, module) {
 		};
 	};
 
-
-	
 	// var CursorSet = function() {
 	// 	this.cursors = [];
 	// 	this.
@@ -112,8 +101,6 @@ define(function(require, exports, module) {
 	// }
 
 	View.prototype.cursors = [new Cursor()];
-
-
 	View.prototype.mainCursor = function() {
 		return this.cursors[0];
 	};
@@ -139,6 +126,4 @@ define(function(require, exports, module) {
 	module.exports.View = View;
 	module.exports.Line = Line;
 	module.exports.Cursor = Cursor;
-	
-
 });
