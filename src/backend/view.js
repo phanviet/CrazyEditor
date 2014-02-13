@@ -1,5 +1,4 @@
 define(function(require, exports, module) {
-
 	var Buffer = require('backend/buffer');
     var Line = function(){
 
@@ -8,15 +7,15 @@ define(function(require, exports, module) {
 
 	};
     
-	Line.prototype.cursors = [];
-	Line.prototype.buffer = function(buffer){
-    	this.buffer = buffer || new Buffer();
-	};
-
-	Line.prototype.len = function(){
-    	return this.buffer.size();
-	};
-
+    Line.prototype = {
+    	cursors : [],
+    	buffer : function(buffer){
+    		this.buffer =buffer || new Buffer();
+    	},
+    	len : function(){
+    		return this.buffer.size();
+    	}
+    };
 	var Cursor = function(col, row, view, line) {
 		this.col = col || 1;
 		this.row = row || 1;
@@ -94,35 +93,28 @@ define(function(require, exports, module) {
 		};
 	};
 
-	// var CursorSet = function() {
-	// 	this.cursors = [];
-	// 	this.
-
-	// }
-
-	View.prototype.cursors = [new Cursor()];
-	View.prototype.mainCursor = function() {
-		return this.cursors[0];
+	View.prototype = {
+		cursors : [new Cursor()],
+		mainCursor : function(){
+			return this.cursors[0];
+		},
+		subCursors : function(){
+			//return this.cursors.splice(1,0);
+		},
+		pushCursor :function(cursor){
+           cursors.push(cursor);
+		},
+		popCursorAt :function(cursor){
+			cursors.pop();
+		},
+		popCursorAt :function(index){
+            return;
+		},
+        popAtIndex :function(index){
+        	return this.cursors.splice(index, 1);
+        }
 	};
 
-	View.prototype.subCursors = function() {
-		// return this.cursors.splice(1,)
-	};
-
-	View.prototype.pushCursor = function(cursor) {
-		View.prototype.cursors.push(cursor);
-	};
-
-	View.prototype.popCursor = function(cursor) {
-		View.prototype.cursors.pop();
-	};
-
-	View.prototype.popCursorAt = function(index) {
-		return;
-	};
-	View.prototype.popAtIndex = function(index){
- 	return this.cursors.splice(index,1);
-	};
 	module.exports.View = View;
 	module.exports.Line = Line;
 	module.exports.Cursor = Cursor;
