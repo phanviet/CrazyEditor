@@ -37,12 +37,7 @@ define(function(require, exports, module) {
         	return this.x;
     	};
 
-		this.bind = function(element) {
-			this.element = element;
-			return this.element;
-		};
-
-		this.show1 = function(element) {
+		this.show = function() {
 			this.element.removeClass('hide');
 		};
 
@@ -60,7 +55,7 @@ define(function(require, exports, module) {
 
         this.bindCursor = function(element){
             this.element = element;
-            return element;
+            return this;
         };
 
         this.showCursor = function(element){

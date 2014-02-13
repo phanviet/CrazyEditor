@@ -5,8 +5,8 @@ define(function(require, exports, module) {
 
     var WindowApp = require('backend/window');
     var windowApp = new WindowApp();
-    cursor = windowApp.views[0].mainCursor();
-    cursor.show1($('.hide'));
+    cursor = windowApp.views[0].mainCursor().bindCursor($('.hide'));
+    cursor.show();
     $(window).click(function(event) {
         var x = event.pageX;
         var y = event.pageY;
