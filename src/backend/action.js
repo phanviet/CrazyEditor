@@ -4,25 +4,20 @@ define(function(require, exports, module) {
     var Region = require('./region');
 
     var Action = function() {
-        var self = this;
-
-        self.apply = function() {};
-        self.undo = function() {};
+        this.apply = function() {};
+        this.undo = function() {};
     };
 
     var InsertAction = function(buffer, position, value) {
-        var self = this;
-        // Action.call(self);
+        this.buffer = buffer || new Buffer();
+        this.position = position || 0;
+        this.value = value || "";
 
-        self.buffer = buffer || new Buffer();
-        self.position = position || 0;
-        self.value = value || "";
-
-        if (self.position < 0) {
-            self.position = 0;
+        if (this.position < 0) {
+            this.position = 0;
         }
-        if (self.position > self.buffer.data.length) {
-            self.position = self.buffer.data.length;
+        if (this.position > this.buffer.data.length) {
+            this.position = this.buffer.data.length;
         }
     };
 
@@ -36,10 +31,7 @@ define(function(require, exports, module) {
     };
 
     var CompositeAction = function(actions) {
-        var self = this;
-        // Action.call(self);
-
-        self.actions = actions || [];
+        this.actions = actions || [];
     };
 
     CompositeAction.prototype = new Action();
@@ -57,19 +49,16 @@ define(function(require, exports, module) {
     };
 
     var EraseAction = function(buffer, position, length) {
-        var self = this;
-        // Action.call(self);
+        this.buffer = buffer || new Buffer();
+        this.position = position || 0;
+        this.length = length || 0;
+        this.value = '';
 
-        self.buffer = buffer || new Buffer();
-        self.position = position || 0;
-        self.length = length || 0;
-        self.value = '';
-
-        if (self.position < 0) {
-            self.position = 0;
+        if (this.position < 0) {
+            this.position = 0;
         }
-        if (self.position > self.buffer.data.length) {
-            self.position = self.buffer.data.length;
+        if (this.position > this.buffer.data.length) {
+            this.position = this.buffer.data.length;
         }
     }
 
