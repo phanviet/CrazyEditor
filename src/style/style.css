@@ -10,6 +10,11 @@
     -webkit-user-select: none;
 }
 
+.line {
+    white-space: nowrap;
+    line-height: 1.3em;
+}
+
 .text-area {
     font-family: monospace;
 }
