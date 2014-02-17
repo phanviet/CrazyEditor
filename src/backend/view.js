@@ -2,21 +2,22 @@ define(function(require, exports, module) {
     "use strict";
     var Cursor = require('./cursor'),
         Line = require('./line'),
+        CursorCollection = require('./collection/cursor_collection'),
         LineCollection = require('./collection/line_collection');
 
 	var View = function() {
-        this.cursors = [new Cursor()];
+        this.cursorCollection = new CursorCollection([new Cursor()]);
         this.lineCollection = new LineCollection([new Line()]);
         this.element = null;
 	};
 
 	View.prototype = {
 		mainCursor: function() {
-			return this.cursors[0];
+			return this.cursorCollection.first();
 		},
 
 		subCursors: function() {
-            return this.cursors.slice(1, this.cursors.length);
+            return this.cursorCollection.slice(1, this.cursorCollection.size());
 		},
 
         pushLine: function(line) {
@@ -28,16 +29,12 @@ define(function(require, exports, module) {
         },
 
 		pushCursorIntoLine: function(cursor, line) {
-            line.cursors.push(cursor);
+            line.cursorCollection.push(cursor);
 		},
 
 		popCursorFromLine: function(line) {
-            line.cursors.pop();
+            return line.cursorCollection.pop();
 		},
-
-        popAt: function(index) {
-        	return this.cursors.splice(index, 1);
-        },
 
         bind: function(element) {
             this.element = element;
