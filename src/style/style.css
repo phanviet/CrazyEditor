@@ -7,6 +7,10 @@
     height: 10000px;
 }
 
+.text-area {
+    font-family: monospace;
+}
+
 .cursor {
     height:15px;
     width: 1px;
