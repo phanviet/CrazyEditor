@@ -1,121 +1,38 @@
 define(function(require, exports, module) {
-	var Buffer = require('backend/buffer');
-    var Line = function(){
+    var Cursor = require('./cursor');
 
-    };
 	var View = function() {
-
-	};
-    
-    Line.prototype = {
-    	cursors : [],
-    	buffer : function(buffer){
-    		this.buffer =buffer || new Buffer();
-    	},
-    	len : function(){
-    		return this.buffer.size();
-    	}
-    };
-	var Cursor = function(col, row, view, line) {
-		this.col = col || 1;
-		this.row = row || 1;
-		this.x = 40;
-		this.y = 0;
-
-		this.view = view || new View();
-		this.line = line || new Line();
-
-		this.getX = function() {
-			this.x = this.x + (9 * this.row);
-			return this.x;
-		};
-
-		this.show = function() {
-			this.element.removeClass('hide');
-		};
-
-		this.hide = function() {
-			this.element.addClass('hide');
-		};
-
-		this.goToWithXY = function(x, y) {
-			this.convertToColRow(x, y);
-			var col = 12;
-			var row = 2;
-			this.goTo(col, row);
-		};
-        this.bindCursor = function(element){
-            this.element = element;
-            return this;
-        };
-
-        this.showCursor = function(element){
-            this.element.removeClass('hide');
-            this.element.css({'top': this.getCurrentY() + 'px', 'left' : this.getCurrentX() + 'px'}); 
-    	};
-
-    	this.goToXY = function(a, b){ //convert x,y to col and row
-        	this.col = b / (16 * this.col);
-        	this.row = a / (9 * this.row);
-    	};
-
-		this.convertToColRow = function(x, y) {
-			//convert code here
-			
-		};
-
-		this.getY = function() {
-			this.y = this.y + (16 * this.col);
-			return this.y;
-		};
-
-		this.goTo = function(col, row) {
-			this.col = col;
-			this.row = row;
-            return this.col + this.row;
-		};
-
-		this.goToEndOfView = function() {
-             //this.goTo(this.col,this.row);
-		};
-
-		this.goToBeginOfView = function() {
-			this.goTo(1, 1);
-		};
-
-		this.goToEndOfLine = function(line) {
-			this.goTo(this.line.len() + 1, this.row);
-            return this.line.len();
-		};
-
-		this.goToFirstOfLine = function() {
-			this.goTo(1, this.row);
-		};
+        this.cursors = [new Cursor()];
+        this.lines = [];
+        this.element = null;
 	};
 
 	View.prototype = {
-		cursors : [new Cursor()],
-		mainCursor : function(){
+		mainCursor: function() {
 			return this.cursors[0];
 		},
-		subCursors : function(){
-			//return this.cursors.splice(1,0);
+
+		subCursors: function() {
+            return this.cursors.slice(1, this.cursors.length);
 		},
-		pushCursor :function(cursor){
-           cursors.push(cursor);
+
+		pushCursor: function(cursor) {
+            this.cursors.push(cursor);
 		},
-		popCursorAt :function(cursor){
-			cursors.pop();
+
+		popCursor: function(cursor) {
+			this.cursors.pop();
 		},
-		popCursorAt :function(index){
-            return;
-		},
-        popAtIndex :function(index){
+
+        popAt: function(index) {
         	return this.cursors.splice(index, 1);
+        },
+
+        bind: function(element) {
+            this.element = element;
+            return this;
         }
 	};
 
-	module.exports.View = View;
-	module.exports.Line = Line;
-	module.exports.Cursor = Cursor;
+	module.exports = View;
 });

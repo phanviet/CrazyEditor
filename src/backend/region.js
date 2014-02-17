@@ -1,45 +1,46 @@
 define(function(require, exports, module) {
+    "use strict";
     var Utils = require('./utils');
     var utils = new Utils();
 
     var Region = function(a, b) {
-        "use strict";
-        var self = this;
-        self.a = a || 0;
-        self.b = b || 0;
+        this.a = a || 0;
+        this.b = b || 0;
+    };
 
-        self.toString = function() {
+    Region.prototype = {
+        toString: function() {
             return '(' + a + ', ' + b + ')';
-        };
+        },
 
-        self.begin = function() {
-            return utils.min(self.a, self.b);
-        };
+        begin: function() {
+            return utils.min(this.a, this.b);
+        },
 
-        self.end = function() {
-            return utils.max(self.a, self.b);
-        };
+        end: function() {
+            return utils.max(this.a, this.b);
+        },
 
-        self.isContain = function(position) {
-            return position >= self.begin() && position < self.end();
-        };
+        isContain: function(position) {
+            return position >= this.begin() && position < this.end();
+        },
 
-        self.isEmpty = function() {
-            return self.a == self.b;
-        };
+        isEmpty: function() {
+            return this.a === this.b;
+        },
 
-        self.size = function() {
-            return self.end() - self.begin();
-        };
+        size: function() {
+            return this.end() - this.begin();
+        },
 
-        self.cover = function(other) {
-            return new Region(utils.min(self.begin(), other.begin()), utils.max(self.end(), other.end()));
-        };
+        cover: function(other) {
+            return new Region(utils.min(this.begin(), other.begin()), utils.max(this.end(), other.end()));
+        },
 
-        self.clip = function(other) {
-            return new Region(utils.clamp(self.a, other.begin(), other.end()),
-                    utils.clamp(self.b, other.begin(), other.end()));
-        };
+        clip: function(other) {
+            return new Region(utils.clamp(this.a, other.begin(), other.end()),
+                    utils.clamp(this.b, other.begin(), other.end()));
+        }
     };
 
     // var RegionSet = function() {

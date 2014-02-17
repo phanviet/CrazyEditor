@@ -4,8 +4,8 @@ define(function(require, exports, module) {
     var Region = require('./region');
     var utils = new Utils();
 
-    var Buffer = function() {
-        this.data = '';
+    var Buffer = function(data) {
+        this.data = data || '';
         this.callbacks = [];
     };
 

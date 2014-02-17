@@ -5,6 +5,9 @@
     text-align: right;
     padding: 0 10px;
     height: 10000px;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
 }
 
 .text-area {

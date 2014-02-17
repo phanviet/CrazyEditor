@@ -13,16 +13,8 @@ define(function(require, exports, module) {
     });
 
     QUnit.test("insert function test", function() {
-        var callback1 = function() {
-            console.log("callback1");
-        }
-        var callback2 = function() {
-            console.log("callback1");
-        }
-        buffer.callbacks = [callback1, callback2]
         buffer.data = "hello";
         buffer.insert(0, "e");
-        console.log("after insert");
         QUnit.equal(buffer.data, "ehello");
         buffer.data = "hello";
         buffer.insert(-1, "a");

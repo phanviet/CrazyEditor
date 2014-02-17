@@ -4,14 +4,15 @@ define(function(require, exports, module) {
 
     var WindowApp = require('backend/window');
     var windowApp = new WindowApp();
-    cursor = windowApp.views[0].mainCursor().bindCursor($('.hide'));
-    cursor.show();
-    $(window).click(function(event) {
-        var x = event.pageX;
-        var y = event.pageY;
-        cursor.goToWithXY(x,y);
+    var activeView = windowApp.firstView().bind($('.text-area'));
+    var mainCursor = activeView.mainCursor().bind($('.hide')).show();
+
+    // $(window).click(function(event) {
+    //     var x = event.pageX;
+    //     var y = event.pageY;
+    //     cursor.goToWithXY(x,y);
     
-    });
+    // });
 
     // console.log(utils.max(0,5));
 /*    var WindowApp = require('backend/window')

@@ -1,8 +1,20 @@
 define(function(require, exports, module) {
-	var View = require('backend/view');
+    "use strict";
+	var View = require('./view');
 
 	var WindowApp = function (views){
-       this.views = views || [new View.View()];
+        this.views = views || [new View()];
 	};
-	module.exports = WindowApp;
+
+    WindowApp.prototype = {
+        firstView: function() {
+            return this.views[0];
+        },
+
+        lastView: function() {
+            return this.views[this.views.length - 1];
+        }
+    }
+
+    module.exports = WindowApp;
 });
