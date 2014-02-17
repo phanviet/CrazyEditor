@@ -1,50 +1,52 @@
 define(function(require, exports, module) {
+    "use strict";
     var Utils = require('./utils');
+    var Region = require('./region');
     var utils = new Utils();
 
     var Buffer = function() {
-        "use strict";
-        var self = this;
-        self.data = "";
-        self.callbacks = [];
+        this.data = '';
+        this.callbacks = [];
+    };
 
-        self.size = function() {
-            return self.data.length;
-        };
+    Buffer.prototype = {
+        size: function() {
+            return this.data.length;
+        },
 
-        self.subStr = function(region) {
-            var length = self.data.length;
-            var from = utils.clamp(region.begin(), 0, length);
-            var to = utils.clamp(region.end(), 0, length);
-            return self.data.substring(from, to);
-        };
+        subStr: function(region) {
+            var from = utils.clamp(region.begin(), 0, this.size());
+            var to = utils.clamp(region.end(), 0, this.size());
+            return this.data.substring(from, to);
+        },
 
-        self.notify = function(position, delta) {
-            self.callbacks.forEach(function(callback) {
+        notify: function(position, delta) {
+            this.callbacks.forEach(function(callback) {
                 callback.apply(this, [position, delta]);
             });
-        };
+        },
 
-        self.insert = function(position, value) {
-            self.data = self.data.substring(0, position) + value
-                    + self.data.substring(position, self.data.length);
-            self.notify(position, value.length);
-        };
+        insert: function(position, value) {
+            this.data = this.subStr(new Region(0, position)) + value
+                    + this.subStr(new Region(position, this.size()));
+            this.notify(position, value.length);
+        },
 
-        self.erase = function(position, length) {
+        erase: function(position, length) {
             if (position < 0) {
                 position = 0;
             }
             if (length < 0) {
                 length = 0;
             }
-            self.data = self.data.substring(0, position)
-                    + self.data.substring(position + length, self.data.length);
-            self.notify(position, -length);
-        };
-        self.replac = function(position, length, value){
-            self.erase(position,length);
-            self.insert(position, value);
+            this.data = this.subStr(new Region(0, position))
+                    + this.subStr(new Region(position + length, this.size()));
+            this.notify(position, -length);
+        },
+
+        replace: function(position, length, value) {
+            this.erase(position, length);
+            this.insert(position, value);
         }
     };
 

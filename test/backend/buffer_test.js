@@ -67,12 +67,13 @@ define(function(require, exports, module) {
         buffer.erase(0, 12);
         QUnit.equal(buffer.data, "");
     });
-     QUnit.test("replace function test", function() {
+
+    QUnit.test("replace function test", function() {
         buffer.data = "hello";
-        buffer.replac(0, 2, "TUAN");
+        buffer.replace(0, 2, "TUAN");
         QUnit.equal(buffer.data, "TUANllo");
-         buffer.data = "hello world";
-        buffer.replac(0, 12, "abc");
+        buffer.data = "hello world";
+        buffer.replace(0, 12, "abc");
         QUnit.equal(buffer.data, "abc");
     });
 });

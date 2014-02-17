@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     var Buffer = require('../../src/backend/buffer.js'),
         Region = require('../../src/backend/region.js'),
-        Action = require('../../src/backend/edit.js');
+        Action = require('../../src/backend/action.js');
         buffer = new Buffer();
 
     QUnit.test("insertAction function test", function() {

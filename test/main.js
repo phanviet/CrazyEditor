@@ -9,7 +9,9 @@
     // extension so RequireJS resolves them as relative paths rather than using
     // the `baseUrl` value supplied above.
     var testModules = [
-        "backend/edit_test.js",
+        "backend/utils_test.js",
+        "backend/buffer_test.js",
+        "backend/action_test.js",
         "backend/view_test.js",
     ];
 
