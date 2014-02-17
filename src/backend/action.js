@@ -22,12 +22,15 @@ define(function(require, exports, module) {
     };
 
     InsertAction.prototype = new Action();
-    InsertAction.prototype.apply = function() {
-        this.buffer.insert(this.position, this.value);
-    };
+    InsertAction.prototype.constructor = InsertAction;
+    InsertAction.prototype = {
+        apply: function() {
+            this.buffer.insert(this.position, this.value);
+        },
 
-    InsertAction.prototype.undo = function() {
-        this.buffer.erase(this.position, this.value.length);
+        undo: function() {
+            this.buffer.erase(this.position, this.value.length);
+        }
     };
 
     var CompositeAction = function(actions) {
@@ -35,16 +38,19 @@ define(function(require, exports, module) {
     };
 
     CompositeAction.prototype = new Action();
-    CompositeAction.prototype.apply = function() {
-        this.actions.forEach(function(action) {
-            action.apply();
-        });
-    };
+    CompositeAction.prototype.constructor = CompositeAction;
+    CompositeAction.prototype = {
+        apply: function() {
+            this.actions.forEach(function(action) {
+                action.apply();
+            });
+        },
 
-    CompositeAction.prototype.undo = function() {
-        length = this.actions.length - 1;
-        for (var i = 0; i < this.actions.length; i++) {
-            this.actions[length - i].undo();
+        undo: function() {
+            length = this.actions.length - 1;
+            for (var i = 0; i < this.actions.length; i++) {
+                this.actions[length - i].undo();
+            }
         }
     };
 
@@ -63,13 +69,17 @@ define(function(require, exports, module) {
     }
 
     EraseAction.prototype = new Action();
-    EraseAction.prototype.apply = function() {
-        this.value = this.buffer.subStr(new Region(this.position, this.position + this.length));
-        this.buffer.erase(this.position, this.length);
-    };
-    EraseAction.prototype.undo = function() {
-        this.buffer.insert(this.position, this.value);
-    };
+    EraseAction.prototype.constructor = EraseAction;
+    EraseAction.prototype = {
+        apply: function() {
+            this.value = this.buffer.subStr(new Region(this.position, this.position + this.length));
+            this.buffer.erase(this.position, this.length);
+        },
+
+        undo: function() {
+            this.buffer.insert(this.position, this.value);
+        }
+    }
 
     module.exports.Action = Action;
     module.exports.InsertAction = InsertAction;

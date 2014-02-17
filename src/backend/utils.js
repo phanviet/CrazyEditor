@@ -1,7 +1,6 @@
 define(function(require, exports, module) {
+    "use strict";
     var Utils = function() {
-        "use strict";
-
         this.min = function(a, b) {
             if (a < b) {
                 return a;

@@ -1,9 +1,12 @@
 define(function(require, exports, module) {
-    var Cursor = require('./cursor');
+    "use strict";
+    var Cursor = require('./cursor'),
+        Line = require('./line'),
+        LineCollection = require('./collection/line_collection');
 
 	var View = function() {
         this.cursors = [new Cursor()];
-        this.lines = [];
+        this.lineCollection = new LineCollection([new Line()]);
         this.element = null;
 	};
 
@@ -16,12 +19,20 @@ define(function(require, exports, module) {
             return this.cursors.slice(1, this.cursors.length);
 		},
 
-		pushCursor: function(cursor) {
-            this.cursors.push(cursor);
+        pushLine: function(line) {
+            this.lineCollection.push(line);
+        },
+
+        popLine: function() {
+            this.lineCollection.pop();
+        },
+
+		pushCursorIntoLine: function(cursor, line) {
+            line.cursors.push(cursor);
 		},
 
-		popCursor: function(cursor) {
-			this.cursors.pop();
+		popCursorFromLine: function(line) {
+            line.cursors.pop();
 		},
 
         popAt: function(index) {

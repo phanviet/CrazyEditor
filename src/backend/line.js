@@ -4,6 +4,7 @@ define(function(require, exports, module) {
 
     var Line = function(buffer) {
         this.buffer = buffer || new Buffer();
+        this.cursors = [];
     };
 
     Line.prototype = {
