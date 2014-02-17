@@ -5,6 +5,7 @@ define(function(require, exports, module) {
     var WindowApp = require('backend/window');
     var windowApp = new WindowApp();
     var activeView = windowApp.firstView().bind($('.text-area'));
+    console.log(activeView);
     var mainCursor = activeView.mainCursor().bind($('.hide')).show();
 
     // $(window).click(function(event) {

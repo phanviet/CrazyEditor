@@ -28,12 +28,12 @@ define(function(require, exports, module) {
             this.lineCollection.pop();
         },
 
-		pushCursorIntoLine: function(cursor, line) {
-            line.cursorCollection.push(cursor);
+		pushCursor: function(cursor) {
+            this.cursorCollection.push(cursor);
 		},
 
-		popCursorFromLine: function(line) {
-            return line.cursorCollection.pop();
+		popCursor: function() {
+            return this.cursorCollection.pop();
 		},
 
         bind: function(element) {

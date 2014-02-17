@@ -4,6 +4,7 @@ define(function(require, exports, module) {
 
     var BaseCollection = function(data) {
         this.data = [];
+        this.currentData = null;
 
         if (data instanceof Array) {
             this.data = data;
@@ -16,7 +17,8 @@ define(function(require, exports, module) {
         },
 
         first: function() {
-            return this.data[0];
+            this.currentData = this.data[0];
+            return this.currentData;
         },
 
         last: function() {
